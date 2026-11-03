@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About – Cricket Lab</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%230f7a4d'/></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="wrap" style="max-width:820px">
+    <section class="hero">
+      <h1>About Cricket Lab</h1>
+      <p class="lede">A personal cricket stats site, built entirely from free, open ball-by-ball data.</p>
+    </section>
+
+    <section class="card">
+      <h2>Where the data comes from</h2>
+      <p>Every number here is worked out from <a href="https://cricsheet.org/">Cricsheet</a>, which publishes ball-by-ball
+        records of cricket matches. The data is used under the
+        <a href="https://opendatacommons.org/licenses/by/1-0/">Open Data Commons Attribution License (ODC-By 1.0)</a>.
+        Thank you to Cricsheet for making it available. Cricket Lab is not affiliated with Cricsheet.</p>
+      <p>The site refreshes itself once a week, so new matches appear a few days after Cricsheet adds them.</p>
+    </section>
+
+    <section class="card section">
+      <h2>Competitions, kept separate</h2>
+      <p>Men’s Tests, ODIs, T20 internationals, the Big Bash League (BBL) and the Indian Premier League (IPL). No women’s cricket.
+        Each competition is built from its own Cricsheet download into its own set of files, so <strong>no figure ever mixes
+        competitions</strong>: a Test average only counts Tests, an IPL strike rate only IPL matches. Player pages show each
+        competition separately and never add them together.</p>
+      <p>T20 internationals have two views: <strong>full member nations only</strong> (the default: matches where both teams are one of the
+        12 full ICC members) and <strong>all teams</strong>, which adds the many matches between smaller cricket nations.</p>
+      <div class="notice"><strong>Career figures are not complete careers.</strong> Cricsheet’s ball-by-ball records only go back so far
+        and some matches are missing, so totals can be lower than official records. Each player page links to their official
+        ESPNcricinfo profile.</div>
+    </section>
+
+    <section class="card section" id="afghanistan">
+      <h2>Afghanistan</h2>
+      <p>Cricsheet no longer publishes matches involving Afghanistan’s men’s team (see Cricsheet’s notes in each download). Their
+        players’ <strong>league</strong> matches, such as the IPL and BBL, are still included. So:</p>
+      <ul>
+        <li>On Test, ODI and T20I views, Afghanistan players are marked: <span class="gap-badge" tabindex="0" data-tip="Afghanistan’s international matches aren’t available in Cricsheet, so these figures are missing or incomplete.">Afghanistan: internationals missing</span>.
+          Their IPL and BBL records show normally.</li>
+        <li><strong>Every other team’s</strong> international matches against Afghanistan are missing too, so players who faced
+          Afghanistan have a few matches fewer than their official records, and head-to-heads against Afghanistan players can’t be shown.
+          These aren’t marked individually, because Cricsheet doesn’t say who played in the withheld matches.</li>
+      </ul>
+      <p class="small muted"><strong>How we know who’s an Afghanistan player:</strong> we keep a list of every player capped by Afghanistan,
+        taken from ESPNcricinfo’s official Afghanistan Test, ODI and T20I caps lists, plus Wikidata (the open database behind Wikipedia).
+        Players are matched by their ESPNcricinfo ID, which Cricsheet’s player register records, so there’s no guessing from names
+        (Afghanistan’s Zahir Khan isn’t mixed up with India’s Zaheer Khan, for example). Each weekly build also asks Wikidata for any newly listed players.</p>
+    </section>
+
+    <section class="card section" id="gaps">
+      <h2>Which years are incomplete?</h2>
+      <p><strong>How we work it out.</strong> Tests, ODIs and T20Is all have official match numbers, in the order the matches were played.
+        Cricsheet records each match’s number, so lining its matches up in number order shows the gaps. For Tests, every gap is treated as a missing Test.
+        For ODIs and T20Is a gap can also be a match abandoned without a ball being bowled (these still get a number) or a withheld Afghanistan match,
+        so we cross-check with <a href="https://cricsheet.org/missing/">Cricsheet’s list of missing matches</a>, which gives each missing match’s date and teams.
+        The BBL and IPL have no official numbers, so for them we use that list directly.</p>
+      <ul class="small">
+        <li><strong>Tests:</strong> everyone who played during the patchy early years is marked (same as before).</li>
+        <li><strong>ODIs:</strong> everyone who played before the first year Cricsheet has 90% of matches is marked; after that, only players from the teams in each missing match.</li>
+        <li><strong>T20Is:</strong> full-member T20Is look complete (the gaps between them are abandoned or withheld matches), but Cricsheet doesn’t have every match between smaller nations.
+          So in the <em>all teams</em> view, players from non-full-member teams are marked in years with such gaps.</li>
+        <li><strong>BBL / IPL:</strong> players from the teams in each missing match are marked. Cricsheet lists no missing IPL matches.</li>
+      </ul>
+      <p class="small muted">A badge means a record <em>may</em> be incomplete, not that it definitely is.</p>
+      <div id="coverage-tables"><p class="empty small">Loading…</p></div>
+    </section>
+
+    <section class="card section">
+      <h2>Thresholds used in each format</h2>
+      <p class="explain">Players meet far fewer times in short formats, so some minimums are lower there.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th></th><th class="r">Tests</th><th class="r">ODIs</th><th class="r">T20s</th></tr></thead>
+        <tbody>
+          <tr><td style="white-space:normal">Nemesis finder: minimum balls against each other</td><td class="r">120</td><td class="r">60</td><td class="r">30</td></tr>
+          <tr><td style="white-space:normal">Matchups: “small sample” below</td><td class="r">120 balls</td><td class="r">60 balls</td><td class="r">30 balls</td></tr>
+          <tr><td style="white-space:normal">Danger zones (balls faced)</td><td class="r">1–10, 11–25, 26–50, 51–100, 101+</td><td class="r">1–10, 11–25, 26–50, 51–80, 81+</td><td class="r">1–5, 6–10, 11–20, 21–35, 36+</td></tr>
+          <tr><td style="white-space:normal">Pressure test: dots in a row</td><td class="r">3, 5, 8+</td><td class="r">3, 5, 8+</td><td class="r">2, 3, 4+</td></tr>
+          <tr><td style="white-space:normal">Era comparison: “top order”</td><td class="r">1–6</td><td class="r">1–6</td><td class="r">1–4</td></tr>
+          <tr><td style="white-space:normal">Phases (overs)</td><td class="r">–</td><td class="r">1–10, 11–40, 41–50</td><td class="r">1–6, 7–15, 16–20</td></tr>
+          <tr><td style="white-space:normal">“On this day” highlights</td><td class="r">100s, 5 wkts</td><td class="r">100s, 5 wkts</td><td class="r">75+, 4 wkts</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card section">
+      <h2>How the numbers are worked out</h2>
+      <div class="table-wrap"><table>
+        <tbody>
+          <tr><td><strong>Batting average</strong></td><td style="white-space:normal">Runs divided by the number of times out.</td></tr>
+          <tr><td><strong>Strike rate (batting)</strong></td><td style="white-space:normal">Runs per 100 balls faced. Wides don’t count as balls faced; no-balls do. In white-ball cricket it matters as much as the average, so it’s shown up front.</td></tr>
+          <tr><td><strong>Bowling average</strong></td><td style="white-space:normal">Runs conceded per wicket. Byes and leg byes aren’t charged to the bowler.</td></tr>
+          <tr><td><strong>Economy</strong></td><td style="white-space:normal">Runs conceded per six-ball over.</td></tr>
+          <tr><td><strong>Strike rate (bowling)</strong></td><td style="white-space:normal">Balls bowled per wicket.</td></tr>
+          <tr><td><strong>Nervous nineties</strong></td><td style="white-space:normal">Of the innings where a batter reached 90, the share where they were out before 100.</td></tr>
+          <tr><td><strong>50 → 100 conversion</strong></td><td style="white-space:normal">Of all innings of 50 or more, the share that became 100 or more.</td></tr>
+          <tr><td><strong>Dot ball %</strong></td><td style="white-space:normal">The share of balls faced that the batter scored nothing off (no-balls aren’t counted as dots).</td></tr>
+          <tr><td><strong>Phases</strong></td><td style="white-space:normal">Powerplay, middle and death overs: which over of the innings each ball was bowled in.</td></tr>
+          <tr><td><strong>Seasons</strong></td><td style="white-space:normal">The BBL and IPL are grouped by season (a BBL season runs December to February, e.g. 2023/24); internationals by calendar year.</td></tr>
+          <tr><td><strong>Not out</strong></td><td style="white-space:normal">“Retired hurt” and “retired not out” count as not out.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section class="card section">
+      <h2>Names</h2>
+      <p>Players are listed the way Cricsheet names them: initials, then surname (“SPD Smith” is Steve Smith). The search
+        understands first names too, so “Steve Smith” finds “SPD Smith”. It searches every competition at once.</p>
+    </section>
+  </main>
+  <script src="js/common.js"></script>
+  <script>
+    CL.init("about.html");
+    // A coverage table for every competition (the one you're viewing first, open).
+    fetch("data/formats.json").then(function (r) { return r.json(); }).then(function (formats) {
+      formats.sort(function (a, b) { return (b.key === CL.format) - (a.key === CL.format); });
+      return Promise.all(formats.map(function (f) { return CL.load("meta.json", f.key).catch(function () { return null; }); }))
+        .then(function (metas) { draw(formats, metas); });
+    }).catch(function (e) { CL.fail(CL.$("#coverage-tables"), e); });
+
+    function draw(formats, metas) {
+      CL.$("#coverage-tables").innerHTML = formats.map(function (f, i) {
+        var m = metas[i];
+        if (!m || !m.coverage) return "";
+        var c = m.coverage, word = m.league ? "Season" : "Year";
+        var numbered = f.kind === "test" || c.method !== "missing";
+        var summary;
+        if (f.kind === "test") {
+          summary = "Cricsheet starts at Test No. " + CL.n(c.before_first + 1) + " (December 2001). " + c.missing + " Tests are missing, all before " +
+            CL.date(c.complete_from) + "; from then on every Test is included except " + c.withheld + " involving Afghanistan.";
+        } else {
+          summary = CL.n(m.matches) + " matches from " + CL.date(m.first) + " to " + CL.date(m.last) + ". Cricsheet lists " + c.missing +
+            " missing match" + (c.missing === 1 ? "" : "es") + (c.withheld ? ", and withholds " + c.withheld + " involving Afghanistan (or played in the Afghanistan Premier League)" : "") + "." +
+            (c.method === "numbers+associates" ? " Unexplained numbering gaps (shown as “other”) are mostly matches between smaller nations that Cricsheet doesn’t have." +
+              (f.key === "t20is" ? " The table counts every T20I (not just full-member ones), because the numbering check needs them all." : "") : "") +
+            (c.missing_list_ok === false ? " (Cricsheet’s missing list couldn’t be read at the last update, so this is based on numbering only.)" : "");
+        }
+        var label = f.key === "t20is" ? "T20Is (full members)" : f.key === "t20is_all" ? "T20Is (all teams)" : f.label;
+        var rows = c.years.map(function (y, j) {
+          var status;
+          if (f.kind === "test") {
+            if (j === 0 && c.before_first > 0) {
+              return "<tr><td>" + y.year + '</td><td class="r">' + y.in_data + '</td><td class="r">–</td><td class="r">–</td><td><span class="gap-badge" tabindex="0" data-tip="Cricsheet’s records start on ' + CL.date(m.first) + '; earlier Tests aren’t included.">Records begin</span></td></tr>';
+            }
+            var played = y.in_data + y.missing + y.withheld;
+            status = y.missing ? '<span class="gap-badge" tabindex="0" data-tip="' + y.missing + ' Tests from this year aren’t in Cricsheet.">Incomplete</span>'
+              : y.withheld ? '<span class="muted">Complete (except Afghanistan)</span>' : '<span class="muted">Complete</span>';
+            return "<tr><td>" + y.year + '</td><td class="r">' + y.in_data + '</td><td class="r">' + played + '</td><td class="r">' +
+              (y.missing ? "<strong>" + y.missing + "</strong>" : 0) + (y.withheld ? ' <span class="muted small">+' + y.withheld + " withheld</span>" : "") + "</td><td>" + status + "</td></tr>";
+          }
+          var assoc = (c.assoc_years || []).map(String).indexOf(String(y.year)) >= 0 && f.key === "t20is_all";
+          status = y.missing ? '<span class="gap-badge" tabindex="0" data-tip="Cricsheet lists ' + y.missing + ' missing match(es) from this ' + word.toLowerCase() + '.">Incomplete</span>'
+            : assoc ? '<span class="gap-badge" tabindex="0" data-tip="Some matches between smaller nations aren’t in Cricsheet.">Smaller nations incomplete</span>'
+            : '<span class="muted">Complete</span>';
+          return "<tr><td>" + y.year + '</td><td class="r">' + y.in_data + '</td><td class="r">' + (y.missing ? "<strong>" + y.missing + "</strong>" : 0) + "</td>" +
+            (numbered ? '<td class="r">' + (y.other || 0) + "</td>" : "") + "<td>" + status + "</td></tr>";
+        }).join("");
+        var head = f.kind === "test"
+          ? "<tr><th>Year</th><th class=\"r\">In data</th><th class=\"r\">Played</th><th class=\"r\">Missing</th><th>Coverage</th></tr>"
+          : "<tr><th>" + word + '</th><th class="r">In data</th><th class="r">Missing</th>' + (numbered ? '<th class="r" title="Withheld (Afghanistan), abandoned without a ball, or not covered">Other gaps</th>' : "") + "<th>Coverage</th></tr>";
+        return '<details class="section"' + (i === 0 ? " open" : "") + "><summary>" + CL.esc(label) + "</summary>" +
+          '<p class="small">' + summary + "</p>" +
+          '<div class="table-wrap"><table><thead>' + head + "</thead><tbody>" + rows + "</tbody></table></div></details>";
+      }).join("");
+    }
+  </script>
+</body>
+</html>

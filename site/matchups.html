@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matchups – Cricket Lab</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%230f7a4d'/></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Batter v bowler</h1>
+      <p class="lede">Pick a batter and a bowler to see every ball they’ve faced each other in the data.</p>
+    </section>
+
+    <div class="grid grid-2">
+      <div class="card field">
+        <label for="bat-input">Batter</label>
+        <div id="bat-slot"></div>
+      </div>
+      <div class="card field">
+        <label for="bowl-input">Bowler</label>
+        <div id="bowl-slot"></div>
+      </div>
+    </div>
+
+    <div id="result" class="section"></div>
+  </main>
+
+  <script src="js/common.js"></script>
+  <script src="js/matchups.js"></script>
+</body>
+</html>

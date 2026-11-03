@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Partnerships – Cricket Lab</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%230f7a4d'/></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Partnership finder</h1>
+      <p class="lede">Which pairs bat best together? Search for a player to see everyone they’ve batted with, or browse the most productive pairs.</p>
+    </section>
+    <div class="card field">
+      <label for="p-input">Player</label>
+      <div id="p-slot"></div>
+    </div>
+    <p class="explain section">A partnership is the runs two batters add while batting together, including extras. <strong>Average stand</strong> = total runs ÷ partnerships
+      that ended with a wicket (unbroken stands add runs but don’t count as an “out”, like a batting average). <strong>Best</strong>: their biggest stand; * = unbroken.</p>
+    <div id="result"></div>
+  </main>
+  <script src="js/common.js"></script>
+  <script src="js/partnerships.js"></script>
+</body>
+</html>

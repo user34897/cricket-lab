@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Venues – Cricket Lab</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%230f7a4d'/></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Venue guide</h1>
+      <p class="lede">How each ground tends to play: typical scores in each innings, whether batting first pays off, and how much the toss matters.</p>
+    </section>
+    <div class="venue-layout">
+      <aside class="card" style="padding:12px">
+        <div class="search"><input id="vq" type="search" placeholder="Filter grounds (e.g. MCG, Gabba)…" autocomplete="off" aria-label="Filter grounds"></div>
+        <ul class="results venue-list" id="venue-list"></ul>
+      </aside>
+      <div id="detail"><p class="empty">Loading grounds…</p></div>
+    </div>
+  </main>
+  <script src="js/common.js"></script>
+  <script src="js/venues.js"></script>
+</body>
+</html>

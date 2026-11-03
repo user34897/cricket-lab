@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chase odds – Cricket Lab</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%230f7a4d'/></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero" id="test-hero">
+      <h1>Fourth-innings chase odds</h1>
+      <p class="lede">Set a target and see how real Test chases of a similar size have ended. Optionally narrow it down to one ground or country.</p>
+    </section>
+    <form class="card" id="form" onsubmit="return false">
+      <div class="form-row">
+        <div class="field" style="flex:0 1 160px"><label for="target">Target</label>
+          <input id="target" type="number" inputmode="numeric" min="1" max="999" placeholder="e.g. 250"></div>
+        <div class="field"><label for="ground">Ground (optional)</label><select id="ground"><option value="">Any ground</option></select></div>
+        <div class="field"><label for="country">Country (optional)</label><select id="country"><option value="">Any country</option></select></div>
+      </div>
+      <label class="check section"><input type="checkbox" id="complete"> <span id="complete-label">Only years where every Test is included</span></label>
+    </form>
+    <div id="result" class="section"></div>
+  </main>
+  <script src="js/common.js"></script>
+  <script src="js/chases.js"></script>
+  <script src="js/chase-calc.js"></script>
+</body>
+</html>

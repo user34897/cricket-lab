@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cricket Lab</title>
+  <meta name="description" content="Personal cricket stats: player careers, batter vs bowler matchups and venue guides, built from Cricsheet ball-by-ball data.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%230f7a4d'/></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Find a player</h1>
+      <p class="lede">Type part of a name: a surname like <em>Smith</em>, or a full name like <em>Steve Smith</em>.
+        Search covers every competition; each player’s competitions are listed separately (figures are never combined).
+        Names are stored the way Cricsheet writes them: initials then surname (e.g. “SPD Smith”).</p>
+      <div class="search">
+        <input id="q" type="search" placeholder="Search players…" autocomplete="off" aria-label="Search players" autofocus>
+      </div>
+      <ul class="results" id="results"></ul>
+    </section>
+
+    <section class="section card" id="otd" aria-live="polite"><p class="empty small">Loading On this day…</p></section>
+
+    <section class="section">
+      <h2 id="list-title">Most matches in the data</h2>
+      <div class="card" style="padding:6px"><ul class="results" id="top" style="margin:0"></ul></div>
+      <p class="gap-key"><strong>Incomplete record</strong> / <sup class="gap-mark">†</sup>: some of the player’s matches in this competition aren’t in Cricsheet, so these totals may be lower than official figures. Hover or tap the badge for details.</p>
+    </section>
+
+    <section class="section grid grid-3 feature-cards">
+      <a href="matchups.html" id="link-matchups"><div class="card"><h3>Matchups →</h3><p class="muted small" style="margin:0">Pick a batter and a bowler to see how their head-to-head battles have gone.</p></div></a>
+      <a href="partnerships.html" id="link-partnerships"><div class="card"><h3>Partnerships →</h3><p class="muted small" style="margin:0">Which pairs bat best together: runs, average stand and best stand.</p></div></a>
+      <a href="chases.html" id="link-chases"><div class="card"><h3>Chase odds →</h3><p class="muted small" style="margin:0" id="chase-blurb">Enter a fourth-innings target and see how real chases of that size ended.</p></div></a>
+      <a href="era.html" id="link-era"><div class="card"><h3>Era comparison →</h3><p class="muted small" style="margin:0">Compare up to three batters against how hard batting was in their time.</p></div></a>
+      <a href="venues.html" id="link-venues"><div class="card"><h3>Venue guide →</h3><p class="muted small" style="margin:0">Typical scores at each ground, whether batting first pays off, and how much the toss matters.</p></div></a>
+      <a href="about.html" id="link-about"><div class="card"><h3>About the data →</h3><p class="muted small" style="margin:0">Where the numbers come from, what years are covered and how each stat is worked out.</p></div></a>
+    </section>
+  </main>
+
+  <script src="js/common.js"></script>
+  <script>
+    CL.init("index.html");
+  </script>
+  <script src="js/onthisday.js"></script>
+  <script>
+    ["matchups", "partnerships", "chases", "era", "venues", "about"].forEach(function (k) { CL.$("#link-" + k).href = CL.link(k + ".html"); });
+
+    if (CL.F.kind !== "test") {
+      CL.$("#chase-blurb").textContent = "Runs needed, balls left and wickets in hand: see how often teams won from there.";
+    }
+    CL.$("#list-title").textContent = "Most " + CL.F.nouns + " in the data";
+
+    // Top of the list for this competition
+    function row(p) {
+      return '<li><a href="' + CL.link("player.html", { id: p.id }) + '">' +
+        '<span><span class="name">' + CL.esc(p.name) + "</span>" + (p.incomplete ? " " + CL.badge() : "") +
+        (p.afg ? " " + CL.afgBadge() : "") + '<br><span class="meta">' + CL.playerMeta(p) + '</span></span>' +
+        '<span class="figs">' + p.matches + CL.mark(p.incomplete) + " " + CL.matchWord(p.matches) + " · " + CL.n(p.runs) + CL.mark(p.incomplete) + " runs · " +
+        CL.n(p.wkts) + CL.mark(p.incomplete) + " wkts</span></a></li>";
+    }
+    CL.players().then(function (list) {
+      CL.$("#top").innerHTML = list.slice(0, 10).map(row).join("");
+    }).catch(function (e) { CL.fail(CL.$("#top"), e); });
+
+    // Search across every competition. A result opens the player in the competition you're
+    // viewing if they've played it, otherwise in their first competition.
+    function personRow(p) {
+      var key = p.counts[CL.format] ? CL.format : CL.ORDER.filter(function (k) { return p.counts[k]; })[0];
+      var comps = CL.ORDER.filter(function (k) { return k !== "t20is_all" && (p.counts[k] || (k === "t20is" && p.counts.t20is_all)); })
+        .map(function (k) { return CL.FORMATS[k].label + " " + (k === "t20is" ? (p.counts.t20is_all || p.counts.t20is) : p.counts[k]); });
+      return '<li><a href="' + CL.link("player.html", { id: p.id }, key) + '">' +
+        '<span><span class="name">' + CL.esc(p.name) + "</span>" + (p.afg && CL.F.intl ? " " + CL.afgBadge() : "") +
+        '<br><span class="meta">' + CL.esc(p.teams) + " · " + (p.from === p.to ? p.from : p.from + "–" + p.to) + "</span>" +
+        '<br><span class="meta">' + CL.esc(comps.join(" · ")) + "</span></span></a></li>";
+    }
+    CL.people().then(function (list) {
+      var q = CL.$("#q"), out = CL.$("#results");
+      function run() {
+        var text = q.value.trim();
+        if (!text) { out.innerHTML = ""; return; }
+        var found = CL.search(text, list, 25);
+        out.innerHTML = found.length ? found.map(personRow).join("")
+          : '<li class="empty">No players found. Try just the surname.</li>';
+      }
+      q.addEventListener("input", run);
+      q.addEventListener("keydown", function (e) {
+        var first = out.querySelector("a");
+        if (e.key === "Enter" && first) location.href = first.href;
+      });
+      if (CL.params.get("q")) { q.value = CL.params.get("q"); run(); }
+    }).catch(function (e) { CL.fail(CL.$("#results"), e); });
+  </script>
+</body>
+</html>
